@@ -1,0 +1,60 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize]
+
+jobs:
+  simple_deployment_pipeline:
+    runs-on: ubuntu-18.04
+    steps:
+      # uses 关键字告诉工作流程运行特定的操作
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        # with 关键字用于为动作提供一个“参数”
+        with:
+          node-version: '14.x'
+      - name: npm install
+        run: npm install
+      - name: lint
+        run: npm run eslint
+      - name: build
+        run: npm run build
+      - name: deploy app to heroku
+        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip') }}
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP }}
+          HEROKU_EMAIL: haibi.peng@aalto.fi
+          healthcheck: "https://${{ secrets.HEROKU_APP }}.herokuapp.com/health"
+          checkstring: "ok"
+          delay: 5
+          rollbackonhealthcheckfailed: true
+      - name: Bump version and push tag
+        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ', '), '#skip') }}
+        uses: anothrNick/github-tag-action@eca2b69f9e2c24be7decccd0f15fdb1ea5906598
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: 'patch'
+          DRY_RUN: true
+      - name: Telegram success notifications
+        if: ${{ job.status == 'success' && !contains(join(github.event.commits.*.message), '#skip') }}
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          args: A new release has been deployed to https://pokemon-hb.herokuapp.com/
+      - name: Telegram failure notifications
+        if: ${{ failure() }}
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO_ }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message:
+            GitHub Actions failed on ${{ github.event_name }} to ${{ github.repository }}.
+            Commit ${{ github.sha }} by ${{ github.actor }}.
