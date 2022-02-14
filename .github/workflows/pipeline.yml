@@ -46,7 +46,7 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          args: A new release has been deployed to https://pokemon-hb.herokuapp.com/
+          args: A new release has been deployed to https://bloglist-hb.herokuapp.com/
       - name: Telegram failure notifications
         if: ${{ failure() }}
         uses: appleboy/telegram-action@master
