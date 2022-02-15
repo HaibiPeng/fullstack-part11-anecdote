@@ -10,7 +10,7 @@
     "start:prod": "cross-env NODE_ENV=production node index.js",
     "start": "node index.js",
     "dev": "cross-env NODE_DEV=development nodemon index.js",
-    "build": "cd client && npm run build",
+    "build": "cd client && npm install && npm run build",
     "deploy": "git push heroku main",
     "logs:prod": "heroku logs --tail",
     "lint": "npm run lint:server && npm run lint:client",
