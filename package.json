@@ -1,23 +1,23 @@
 {
-  "name": "p11-ex21-own-pipeline",
+  "name": "p11-own-pipeline",
   "version": "0.0.1",
   "engines": {
     "node": "14.17.x"
   },
-  "description": "Own pipeline from the bloglist app",
+  "description": "Custom pipeline from bloglist app",
   "main": "index.js",
   "scripts": {
     "start:prod": "cross-env NODE_ENV=production node index.js",
     "start": "node index.js",
     "dev": "cross-env NODE_DEV=development nodemon index.js",
-    "build": "cd bloglist-frontend && npm install && npm run build",
-    "deploy": "git push heroku master",
+    "build": "cd client && npm install && npm run build",
+    "deploy": "git push heroku main",
     "logs:prod": "heroku logs --tail",
-    "eslint": "npm run lint:server && npm run lint:client",
+    "lint": "npm run lint:server && npm run lint:client",
     "lint:server": "eslint .",
-    "lint:client": "cd bloglist-frontend && npm run eslint",
+    "lint:client": "cd client && npm run lint",
     "test:server": "cross-env NODE_ENV=test jest --verbose --runInBand",
-    "test:client": "cd bloglist-frontend && npm run test",
+    "test:client": "cd client && npm run test",
     "start:test": "cross-env NODE_ENV=test node index.js"
   },
   "author": "Haibi Peng",
