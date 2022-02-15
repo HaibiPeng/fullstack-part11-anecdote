@@ -1,51 +1,51 @@
 module.exports = {
-  "env": {
-    "browser": true,
-    "node": true,
-    "es6": true,
-    "jest/globals": true
+  'env': {
+    'browser': true,
+    'node': true,
+    'es6': true,
+    'jest/globals': true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:cypress/recommended",
+  'extends': [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:cypress/recommended',
   ],
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
+  'parserOptions': {
+    'ecmaFeatures': {
+      'jsx': true
     },
-    "ecmaVersion": 2018,
-    "sourceType": "module"
+    'ecmaVersion': 2018,
+    'sourceType': 'module'
   },
-  "plugins": [
-    "react", "jest"
+  'plugins': [
+    'react', 'jest'
   ],
-  "rules": {
-    "indent": [
-      "error",
+  'rules': {
+    'indent': [
+      'error',
         2
       ],
-    "linebreak-style": [
-      "error",
-      "unix"
+    'linebreak-style': [
+      'error',
+      'unix'
     ],
-    "quotes": [
-      "error",
-      "single"
+    'quotes': [
+      'error',
+      'single'
     ],
-    "semi": [
-      "error",
-      "never"
+    'semi': [
+      'error',
+      'never'
     ],
-    "eqeqeq": "error",
-    "no-trailing-spaces": "error",
-    "object-curly-spacing": [
-      "error", "always"
+    'eqeqeq': 'error',
+    'no-trailing-spaces': 'error',
+    'object-curly-spacing': [
+      'error', 'always'
     ],
-    "arrow-spacing": [
-      "error", { "before": true, "after": true }
+    'arrow-spacing': [
+      'error', { 'before': true, 'after': true }
     ],
-    "no-console": 0,
-    "react/prop-types": 0
+    'no-console': 0,
+    'react/prop-types': 0
   },
 }
