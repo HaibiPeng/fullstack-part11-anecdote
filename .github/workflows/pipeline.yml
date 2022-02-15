@@ -18,10 +18,10 @@ jobs:
           node-version: '14.x'
       - name: npm install
         run: npm install
-      # - name: lint
-      #   run: npm run lint
-      # - name: build
-      #   run: npm run build
+      - name: lint
+        run: npm run lint
+      - name: build
+        run: npm run build
       - name: deploy app to heroku
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip') }}
         uses: akhileshns/heroku-deploy@v3.12.12
@@ -46,12 +46,12 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          args: A new release has been deployed to https://bloglist-hb.herokuapp.com/
+          args: A new release has been deployed to https://{{ secrets.HEROKU_APP }}.herokuapp.com/
       - name: Telegram failure notifications
         if: ${{ failure() }}
         uses: appleboy/telegram-action@master
         with:
-          to: ${{ secrets.TELEGRAM_TO_ }}
+          to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message:
             GitHub Actions failed on ${{ github.event_name }} to ${{ github.repository }}.
