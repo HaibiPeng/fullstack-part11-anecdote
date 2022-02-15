@@ -12,4 +12,3 @@ jobs:
         uses: jtalk/url-health-check-action@v2
         with:
           url: https://bloglist-hb.herokuapp.com/
-          retry-delay: 5s
