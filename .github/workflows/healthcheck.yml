@@ -11,5 +11,5 @@ jobs:
       - name: Check the deployed service URL
         uses: jtalk/url-health-check-action@v2
         with:
-          url: https://{{ secrets.HEROKU_APP }}.herokuapp.com/
+          url: https://anecdote-hb.herokuapp.com/
           retry-delay: 5s
