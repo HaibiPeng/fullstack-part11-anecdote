@@ -18,10 +18,10 @@ jobs:
           node-version: '14.x'
       - name: npm install
         run: npm install
-      - name: lint
-        run: npm run lint
-      - name: build
-        run: npm run build
+      # - name: lint
+      #   run: npm run lint
+      # - name: build
+      #   run: npm run build
       - name: deploy app to heroku
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip') }}
         uses: akhileshns/heroku-deploy@v3.12.12
